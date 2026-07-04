@@ -7,6 +7,7 @@ use Database\Factories\UserFactory;
 use Illuminate\Database\Eloquent\Attributes\Fillable;
 use Illuminate\Database\Eloquent\Attributes\Hidden;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
@@ -28,5 +29,29 @@ class User extends Authenticatable
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
         ];
+    }
+
+    /**
+     * Articles this user authored.
+     */
+    public function authoredArticles(): HasMany
+    {
+        return $this->hasMany(Article::class, 'author_id');
+    }
+
+    /**
+     * Articles this user edited/reviewed.
+     */
+    public function editedArticles(): HasMany
+    {
+        return $this->hasMany(Article::class, 'editor_id');
+    }
+
+    /**
+     * Media this user uploaded.
+     */
+    public function uploadedMedia(): HasMany
+    {
+        return $this->hasMany(Media::class, 'uploaded_by');
     }
 }
