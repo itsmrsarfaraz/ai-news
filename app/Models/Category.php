@@ -34,6 +34,14 @@ class Category extends Model
         ];
     }
 
+    /**
+     * Use the slug for implicit route model binding (e.g. /categories/{category}).
+     */
+    public function getRouteKeyName(): string
+    {
+        return 'slug';
+    }
+
     public function parent(): BelongsTo
     {
         return $this->belongsTo(Category::class, 'parent_id');

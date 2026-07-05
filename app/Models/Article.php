@@ -67,6 +67,14 @@ class Article extends Model
     }
 
     /**
+     * Use the slug for implicit route model binding (e.g. /articles/{article}).
+     */
+    public function getRouteKeyName(): string
+    {
+        return 'slug';
+    }
+
+    /**
      * The article's primary category.
      */
     public function category(): BelongsTo
